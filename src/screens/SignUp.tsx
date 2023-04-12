@@ -6,7 +6,7 @@ import { Button } from "@components/Button";
 
 import { Center, Heading, Image, ScrollView, Text, VStack } from "native-base";
 
-export const SignIn = () => {
+export const SignUp = () => {
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -28,10 +28,12 @@ export const SignIn = () => {
           </Text>
         </Center>
 
-        <Center mb={24}>
+        <Center mb={12}>
           <Heading color="gray.100" fontSize="xl" fontFamily="heading" mb={8}>
-            Acesse sua Conta
+            Crie sua conta
           </Heading>
+
+          <Input placeholder="Nome" />
 
           <Input
             placeholder="E-mail"
@@ -41,16 +43,10 @@ export const SignIn = () => {
 
           <Input placeholder="Senha" secureTextEntry />
 
-          <Button title="Acessar" />
+          <Button title="Criar e acessar" />
         </Center>
 
-        <Center>
-          <Text color="gray.100" fontSize={16} fontFamily="body" mb={4}>
-            Ainda não tem acesso?
-          </Text>
-
-          <Button title="Criar conta" variant="outline" />
-        </Center>
+        <Button title="Voltar para o login" variant="outline" />
       </VStack>
     </ScrollView>
   );
