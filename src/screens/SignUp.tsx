@@ -12,7 +12,7 @@ export const SignUp = () => {
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
     >
-      <VStack p={5} flex={1} bg="gray.700">
+      <VStack p={5} flex={1}>
         <Image
           source={backgroundImage}
           alt="Pessoas treinando"

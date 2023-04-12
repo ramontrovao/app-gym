@@ -1,7 +1,8 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 import { SignIn } from "@screens/SignIn";
 import { SignUp } from "@screens/SignUp";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 
 type AuthRoutesType = {
   signIn: undefined;
