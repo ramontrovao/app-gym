@@ -1,6 +1,7 @@
+import { AuthRoutes } from "./auth.route";
+
 import { Box, useTheme } from "native-base";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { AuthRoutes } from "./auth.route";
 
 export const Routes = () => {
   const nativeBaseTheme = useTheme();
@@ -9,7 +10,7 @@ export const Routes = () => {
 
   return (
     <Box flex={1} bg="gray.700">
-      <NavigationContainer theme={theme}>
+      <NavigationContainer>
         <AuthRoutes />
       </NavigationContainer>
     </Box>

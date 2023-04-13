@@ -24,6 +24,7 @@ export const SignIn = () => {
       <VStack p={5} flex={1}>
         <Image
           source={backgroundImage}
+          defaultSource={backgroundImage}
           alt="Pessoas treinando"
           resizeMode="contain"
           position="absolute"

@@ -19,6 +19,7 @@ export const Button = ({ title, variant = "solid", ...rest }: IButtonProps) => {
       borderColor="green.500"
       rounded="sm"
       _pressed={{ bg: variant === "outline" ? "gray.500" : "green.500" }}
+      {...rest}
     >
       <Text
         fontFamily="heading"
