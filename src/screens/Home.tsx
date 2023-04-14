@@ -1,5 +1,7 @@
+import { ExerciseCard } from "@components/ExerciseCard";
 import { Group } from "@components/Group";
 import { HomeHeader } from "@components/HomeHeader";
+
 import { FlatList, Heading, HStack, Text, VStack } from "native-base";
 import { useState } from "react";
 
@@ -28,12 +30,13 @@ export const Home = () => {
         keyExtractor={(group) => group}
         horizontal
         showsHorizontalScrollIndicator={false}
-        px={8}
+        px={4}
+        mr={4}
         my={10}
         maxH={10}
       />
 
-      <VStack flex={1} px={8}>
+      <VStack flex={1} px={4}>
         <HStack justifyContent="space-between">
           <Heading color="gray.200" fontSize="md">
             Exercícios
@@ -43,6 +46,10 @@ export const Home = () => {
             4
           </Text>
         </HStack>
+
+        <ExerciseCard />
+        <ExerciseCard />
+        <ExerciseCard />
       </VStack>
     </VStack>
   );
