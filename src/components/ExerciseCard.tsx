@@ -6,7 +6,7 @@ interface ExerciseCardProps extends TouchableOpacityProps {}
 
 export const ExerciseCard = ({ ...rest }: ExerciseCardProps) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity {...rest}>
       <HStack
         bg="gray.500"
         alignItems="center"

@@ -17,10 +17,8 @@ export const Group = ({ name, isActive, ...rest }: IGroupProps) => {
       alignItems="center"
       overflow="hidden"
       isPressed={isActive}
-      _pressed={{
-        borderColor: "green.500",
-        borderWidth: 1,
-      }}
+      borderWidth={isActive ? 1 : 0}
+      borderColor={isActive ? "green.500" : ""}
       {...rest}
     >
       <Text
