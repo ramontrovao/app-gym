@@ -38,6 +38,7 @@ export const History = () => {
             Não há exercícios registrados ainda. {"\n"} Vamos treinar hoje?
           </Text>
         )}
+        showsVerticalScrollIndicator={false}
       />
     </VStack>
   );
