@@ -56,6 +56,7 @@ export const Home = () => {
         mr={4}
         my={10}
         maxH={10}
+        minH={10}
       />
 
       <VStack flex={1} px={4}>

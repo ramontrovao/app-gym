@@ -13,7 +13,12 @@ export const HistoryCard = () => {
       justifyContent="center"
     >
       <VStack flex={1}>
-        <Heading color="white" fontSize="md" textTransform="capitalize">
+        <Heading
+          color="white"
+          fontSize="md"
+          textTransform="capitalize"
+          numberOfLines={1}
+        >
           Costas
         </Heading>
 
