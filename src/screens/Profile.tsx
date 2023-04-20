@@ -2,6 +2,7 @@ import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { ScreenHeader } from "@components/ScreenHeader";
 import { UserPhoto } from "@components/UserPhoto";
+
 import {
   Center,
   ScrollView,
@@ -10,6 +11,7 @@ import {
   Text,
   Heading,
 } from "native-base";
+import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 
@@ -17,6 +19,31 @@ const PHOTO_SIZE = 33;
 
 export const Profile = () => {
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
+  const [userPhoto, setUserPhoto] = useState(
+    "https://imgs.search.brave.com/UICTDNR2eKsOOJbacHYF4_HxBHrewumwn0JbBFh3Pm8/rs:fit:820:809:1/g:ce/aHR0cHM6Ly93d3cu/cG5na2V5LmNvbS9w/bmcvZGV0YWlsLzEy/MS0xMjE5MjMxX3Vz/ZXItZGVmYXVsdC1w/cm9maWxlLnBuZw"
+  );
+
+  const handleUserSelectPhoto = async () => {
+    try {
+      const photoSelected = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 4],
+        quality: 1,
+        selectionLimit: 1,
+      });
+
+      if (photoSelected.canceled) return;
+
+      setPhotoIsLoading(true);
+
+      setUserPhoto(photoSelected.assets[0].uri);
+
+      setPhotoIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <VStack flex={1}>
@@ -35,13 +62,13 @@ export const Profile = () => {
 
           {!photoIsLoading && (
             <UserPhoto
-              source={{ uri: "https://github.com/ramontrovao.png" }}
+              source={{ uri: userPhoto }}
               size={PHOTO_SIZE}
               alt="Foto do usuário"
             />
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserSelectPhoto}>
             <Text
               color="green.500"
               fontWeight="bold"
