@@ -10,20 +10,25 @@ import {
   Skeleton,
   Text,
   Heading,
+  useToast,
 } from "native-base";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import { Alert, TouchableOpacity } from "react-native";
 
 const PHOTO_SIZE = 33;
 
 export const Profile = () => {
+  const toast = useToast();
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
   const [userPhoto, setUserPhoto] = useState(
     "https://imgs.search.brave.com/UICTDNR2eKsOOJbacHYF4_HxBHrewumwn0JbBFh3Pm8/rs:fit:820:809:1/g:ce/aHR0cHM6Ly93d3cu/cG5na2V5LmNvbS9w/bmcvZGV0YWlsLzEy/MS0xMjE5MjMxX3Vz/ZXItZGVmYXVsdC1w/cm9maWxlLnBuZw"
   );
 
   const handleUserSelectPhoto = async () => {
+    setPhotoIsLoading(true);
+
     try {
       const photoSelected = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -34,14 +39,32 @@ export const Profile = () => {
       });
 
       if (photoSelected.canceled) return;
+      const photoUri = photoSelected.assets[0].uri;
 
-      setPhotoIsLoading(true);
+      if (photoUri) {
+        const photoInfo = await FileSystem.getInfoAsync(photoUri);
 
-      setUserPhoto(photoSelected.assets[0].uri);
+        if (photoInfo.exists && photoInfo.size / 1024 / 1024 > 2) {
+          toast.show({
+            title: "Essa imagem é muito grande! Escolha uma de até 2MB.",
+            placement: "top",
+            bgColor: "red.500",
+          });
 
-      setPhotoIsLoading(false);
+          return;
+        }
+
+        setUserPhoto(photoSelected.assets[0].uri);
+        toast.show({
+          title: "Imagem alterada com sucesso!",
+          placement: "top",
+          bgColor: "green.500",
+        });
+      }
     } catch (error) {
       console.log(error);
+    } finally {
+      setPhotoIsLoading(false);
     }
   };
 
