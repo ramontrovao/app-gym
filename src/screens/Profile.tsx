@@ -110,6 +110,7 @@ export const Profile = () => {
           <Heading
             color="gray.200"
             fontSize="md"
+            fontFamily="heading"
             alignSelf="flex-start"
             mt={12}
             mb={2}

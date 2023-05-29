@@ -40,7 +40,9 @@ export const Input = ({
         {...rest}
       />
 
-      <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+      <FormControl.ErrorMessage _text={{ color: "red.500" }}>
+        {errorMessage}
+      </FormControl.ErrorMessage>
     </FormControl>
   );
 };
