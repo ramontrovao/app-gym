@@ -1,6 +1,13 @@
 import { Input as NativeBaseInput, IInputProps } from "native-base";
 
-export const Input = ({ ...rest }: IInputProps) => {
+interface IInputComponentProps extends IInputProps {
+  errorMessage?: string | null;
+}
+
+export const Input = ({
+  errorMessage = null,
+  ...rest
+}: IInputComponentProps) => {
   return (
     <NativeBaseInput
       h={14}
