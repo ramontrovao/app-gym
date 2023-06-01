@@ -8,12 +8,22 @@ import { Button } from "@components/Button";
 
 import { Center, Heading, Image, ScrollView, Text, VStack } from "native-base";
 import { useNavigation } from "@react-navigation/native";
+import { Controller } from "react-hook-form";
+import { useSignInForm } from "@hooks/useSignInForm";
+
+type TSignInFormDataProps = Record<"email" | "password", string>;
 
 export const SignIn = () => {
   const { navigate } = useNavigation<IAuthNavigatorRoutesProps>();
 
+  const { control, errors, handleSubmit } = useSignInForm();
+
   const handleNewAccount = () => {
     navigate("signUp");
+  };
+
+  const onSignIn = () => {
+    console.log("entrou");
   };
 
   return (
@@ -43,15 +53,37 @@ export const SignIn = () => {
             Acesse sua Conta
           </Heading>
 
-          <Input
-            placeholder="E-mail"
-            keyboardType="email-address"
-            autoCapitalize="none"
+          <Controller
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                placeholder="E-mail"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.email?.message}
+              />
+            )}
+            control={control}
           />
 
-          <Input placeholder="Senha" secureTextEntry />
+          <Controller
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                placeholder="Senha"
+                autoCapitalize="none"
+                secureTextEntry
+                onChangeText={onChange}
+                value={value}
+                errorMessage={errors.password?.message}
+              />
+            )}
+            control={control}
+          />
 
-          <Button title="Acessar" />
+          <Button title="Acessar" onPress={handleSubmit(onSignIn)} />
         </Center>
 
         <Center>

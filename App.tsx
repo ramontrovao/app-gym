@@ -10,8 +10,9 @@ import { Loading } from "@components/Loading";
 
 import { THEME } from "./src/theme";
 
-import { StatusBar, Text, View } from "react-native";
+import { StatusBar } from "react-native";
 import { NativeBaseProvider } from "native-base";
+import { AuthContextProvider } from "@contexts/AuthContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -24,8 +25,10 @@ export default function App() {
         translucent
       />
 
-      {fontsLoaded && <Routes />}
-      {!fontsLoaded && <Loading />}
+      <AuthContextProvider>
+        {fontsLoaded && <Routes />}
+        {!fontsLoaded && <Loading />}
+      </AuthContextProvider>
     </NativeBaseProvider>
   );
 }

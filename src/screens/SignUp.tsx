@@ -1,8 +1,13 @@
 import backgroundImage from "@assets/background.png";
 import LogoSvg from "@assets/logo.svg";
 
+import axios from "axios";
+import { api } from "@services/api";
+
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+
+import { AppError } from "@utils/AppError";
 
 import {
   Box,
@@ -12,46 +17,46 @@ import {
   ScrollView,
   Text,
   VStack,
+  useToast,
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useSignUpForm } from "@hooks/useSignUpForm";
 
 type TSignUpFormDataProps = Record<
   "name" | "email" | "password" | "confirmPassword",
   string
 >;
 
-const signUpSchema = yup.object({
-  name: yup.string().required("Informe o nome"),
-  email: yup.string().required("Informe o email").email("Email inválido"),
-  password: yup
-    .string()
-    .required("Informe a senha")
-    .min(6, "A senha deve ter ao menos 6 dígitos"),
-  confirmPassword: yup
-    .string()
-    .required("Confirme a senha")
-    .oneOf([yup.ref("password")], "As senhas não coincidem"),
-});
-
 export const SignUp = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TSignUpFormDataProps>({
-    resolver: yupResolver(signUpSchema),
-  });
   const { goBack } = useNavigation();
+  const toast = useToast();
+
+  const { control, errors, handleSubmit } = useSignUpForm();
 
   const handleGoBack = () => {
     goBack();
   };
 
-  const onSignUp = (data: TSignUpFormDataProps) => {
-    console.log(data);
+  const onSignUp = async ({ name, email, password }: TSignUpFormDataProps) => {
+    try {
+      const response = await api.post("/users", { name, email, password });
+
+      console.log(response.data);
+    } catch (err) {
+      const isAppError = err instanceof AppError;
+      const title = isAppError
+        ? err.message
+        : "Não foi possível criar a conta, tente novamente mais tarde.";
+
+      toast.show({
+        title,
+        placement: "top",
+        bgColor: "red.500",
+      });
+    }
   };
 
   return (
